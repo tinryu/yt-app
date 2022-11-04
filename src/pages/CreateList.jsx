@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SearchG from "../components/Playlists/SearchG";
-import database from "../firebase/firebase.js";
+import {database} from "../firebase/firebase.js";
 
 export default function CreateList() {
   const [data, setData] = useState({});

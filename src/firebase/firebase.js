@@ -1,7 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
-// import "firebase/auth";
-// import "firebase/firestore";
+import "firebase/auth";
+import "firebase/firestore";
+
 var firebaseConfig = {
     apiKey: import.meta.env.VITE_API_KEY_GG,
     authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -17,5 +18,6 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
+const auth = firebase.auth();
 
-export { firebase, database as default};
+export { firebase, database, auth };

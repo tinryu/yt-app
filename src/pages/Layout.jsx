@@ -2,8 +2,6 @@ import React, { useState, Suspense } from "react";
 import { Outlet } from "react-router-dom";
 const Player = React.lazy(() => import('../components/Player/Player'));
 const NavLeft = React.lazy(() => import('../components/Nav/NavLeft'));
-// import NavLeft from "../components/Nav/NavLeft";
-// import Player from "../components/Player/Player";
 import useWindowDimensions from '../components/Player/UseWindowDimensions';
 
 export default function Layout() {
@@ -14,6 +12,15 @@ export default function Layout() {
     listId: 'RDq6YmhSgPgbk',
     isGroup: true
   });
+  // auth.onAuthStateChanged((user) => {
+  //   if (user) {
+  //     var uid = user.uid;
+  //     // console.log(uid);
+  //   } else {
+  //     // User is signed out
+  //     // ...
+  //   }
+  // });
   
   return (
     <>

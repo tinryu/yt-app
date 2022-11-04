@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import database from '../../firebase/firebase.js';
+import {database} from '../../firebase/firebase.js';
 
 export default function FormAdd(props) {
     const [name, setName] = useState('');

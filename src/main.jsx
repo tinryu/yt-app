@@ -15,6 +15,8 @@ import CreateList from './pages/CreateList';
 import Detail, {
   loader as detailLoader,
 } from './pages/Detail';
+import Resgister from './pages/Resgister';
+import Login from './pages/Login';
 import NoPage from './pages/NoPage';
 
 const router = createBrowserRouter([
@@ -23,6 +25,16 @@ const router = createBrowserRouter([
     element: <Layout/>,
     errorElement: <NoPage />,
     children: [
+      {
+        path: "/resgister",
+        element: <Resgister />,
+        errorElement: <NoPage />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+        errorElement: <NoPage />,
+      },
       {
         path: "/home",
         element: <Home />,
