@@ -2,22 +2,40 @@ import React, { useEffect } from 'react'
 import { firebase, auth } from "../firebase/firebase.js";
 
 export default function Login() {
-    // var email = "test@example.com";
-    // var password = "hunter2";
-    // auth.signInWithEmailAndPassword(email, password)
-    //     .then((userCredential) => {
-    //         // Signed in
-    //         var user = userCredential.user;
-    //     })
-    //     .catch((error) => {
-    //         var errorCode = error.code;
-    //         var errorMessage = error.message;
-    //     });
-    function toggleSignIn() {
+    function toggleSignIn(swt) {
         if (!auth.currentUser) {
-            var provider = new firebase.auth.GoogleAuthProvider();
-            provider.addScope('https://www.googleapis.com/auth/plus.login');
-            auth.signInWithRedirect(provider);
+            if (swt === 'login') {
+                var email = 'storeman1311@gmail.com';
+                var password = '123456'
+                if (email.length < 4) {
+                    alert('Please enter an email address.');
+                    return;
+                }
+                if (password.length < 4) {
+                    alert('Please enter a password.');
+                    return;
+                }
+                auth.signInWithEmailAndPassword(email, password).catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    if (errorCode === 'auth/wrong-password') {
+                        alert('Wrong password.');
+                    } else {
+                        alert(errorMessage);
+                    }
+                });
+            } else {                
+                if (swt === 'google') {
+                    var provider = new firebase.auth.GoogleAuthProvider();
+                    provider.addScope('https://www.googleapis.com/auth/plus.login');
+                    auth.signInWithRedirect(provider);
+                } else if(swt === 'facebook') {
+                    var provider = new firebase.auth.FacebookAuthProvider();
+                    provider.addScope('user_likes');
+                    auth.signInWithRedirect(provider);
+                }
+            }            
         } else {
             auth.signOut();
         }
@@ -102,19 +120,19 @@ export default function Login() {
                         <form>
                             <div className="text-center mb-3">
                                 <p>Sign in with:</p>
-                                <button type="button" className="btn btn-link btn-floating mx-1">
+                                <button onClick={() => toggleSignIn('facebook')} type="button" className="btn btn-link btn-floating mx-1">
                                     <i className="fab fa-facebook-f"></i>FB
                                 </button>
 
-                                <button onClick={toggleSignIn} id="quickstart-sign-in" type="button" className="btn btn-link btn-floating mx-1">
+                                <button onClick={() => toggleSignIn('google')} id="quickstart-sign-in" type="button" className="btn btn-link btn-floating mx-1">
                                     <i className="fab fa-google"></i>GG
                                 </button>
 
-                                <button type="button" className="btn btn-link btn-floating mx-1">
+                                <button onClick={() => toggleSignIn('twitter')} type="button" className="btn btn-link btn-floating mx-1">
                                     <i className="fab fa-twitter"></i>TW
                                 </button>
 
-                                <button type="button" className="btn btn-link btn-floating mx-1">
+                                <button onClick={() => toggleSignIn('github')} type="button" className="btn btn-link btn-floating mx-1">
                                     <i className="fab fa-github"></i>GH
                                 </button>
                             </div>
@@ -144,7 +162,7 @@ export default function Login() {
                                 </div>
                             </div>
 
-                            <button type="submit" className="btn btn-primary btn-block mb-4">Sign in</button>
+                            <button type="submit" className="btn btn-primary btn-block mb-4" onClick={() => toggleSignIn('login')}>Sign in</button>
 
                             <div className="text-center">
                                 <p>Not a member? <a href="#!">Register</a></p>
