@@ -128,17 +128,19 @@ export default function Player(props) {
         isLoading: true,
         isToggle: true,
         isTogglePlay: false,
-        title: state.listVid[rand] && state.listVid[rand].title,
-        imageUrl: state.listVid && state.listVid[rand] && state.listVid[rand].idVid + `/0.jpg`,
-        channelTitle: state.listVid[rand] && state.listVid[rand].channelTitle
+        title: state.listVid[rand]?.title,
+        imageUrl: state.listVid[rand]?.idVid ? state.listVid[rand]?.idVid + `/0.jpg` : "",
+        channelTitle: state.listVid[rand]?.channelTitle
       }
     })
   }
   async function onReady(event) {
     var rand = state.rand;
-    setPlayer(event.target)
-    player?.pauseVideo();
-    player?.setPlaybackQuality("small");
+    setTimeout(() => {
+      setPlayer(event.target)  
+    }, 2000);
+    await player?.pauseVideo();
+    await player?.setPlaybackQuality("small");
     loadCover(rand);
     if (await player?.getPlayerState() !== 5) {
       dispatch({ type: types.TOOGLEPLAY, isTogglePlay: false })
@@ -279,7 +281,7 @@ export default function Player(props) {
             <div className="wrap-1">
               <div className="cover-image">
                 {state.isLoading ? 
-                <img src={'https://img.youtube.com/vi/' + state.imageUrl} alt="" className="cover-art-image"/> :
+                <img src={state.imageUrl !== '' ? `https://img.youtube.com/vi/` + state.imageUrl: ``} alt="" className="cover-art-image"/> :
                 <svg height="45px" viewBox="-18 0 512 512" width="60px" xmlns="http://www.w3.org/2000/svg">
                     <path d="m446.121094 165.035156v118.015625c-15.859375-14.148437-36.757813-22.761719-59.632813-22.761719-49.449219 0-89.679687 40.230469-89.679687 89.679688 0 49.453125 40.230468 89.683594 89.679687 89.683594s89.679688-40.230469 89.679688-89.683594v-192.550781zm0 0" />
                     <path d="m476.167969 126.417969v-126.417969l-326.855469 82.855469v126.417969zm0 0" />

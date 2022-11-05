@@ -1,7 +1,9 @@
-import firebase from 'firebase/app';
-import 'firebase/database';
-import "firebase/auth";
-import "firebase/firestore";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/database';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import * as firebaseui from 'firebaseui';
+
 
 var firebaseConfig = {
     apiKey: import.meta.env.VITE_API_KEY_GG,
@@ -19,5 +21,6 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 const auth = firebase.auth();
+const ui = new firebaseui.auth.AuthUI(auth);
 
-export { firebase, database, auth };
+export { firebase, ui, database, auth };
