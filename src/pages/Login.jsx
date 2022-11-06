@@ -18,17 +18,21 @@ export default function Login() {
             signInOptions: [
                 {
                     provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                    providerName: 'Google',
+                    fullLabel: 'Sign in with ',
                     scopes: [
                         'https://www.googleapis.com/auth/contacts.readonly'
                     ],
                     customParameters: {
                         // Forces account selection even when one account
                         // is available.
-                        prompt: 'select_account'
-                    }
+                        prompt: 'consent'
+                    },
                 },
                 {
                     provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+                    providerName: 'Facebook',
+                    fullLabel: 'Sign in with ',
                     scopes: [
                         'public_profile',
                         'email',
@@ -43,6 +47,8 @@ export default function Login() {
                 firebase.auth.TwitterAuthProvider.PROVIDER_ID, // Twitter does not support scopes.
                 {
                     provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                    providerName: 'Email',
+                    fullLabel: 'Sign in with ',
                     signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
                     forceSameDevice: false,
                     emailLinkSignIn: function () {
@@ -64,7 +70,12 @@ export default function Login() {
                         };
                     }
                 },
-                firebase.auth.GithubAuthProvider.PROVIDER_ID
+                {
+                    provider: firebase.auth.GithubAuthProvider.PROVIDER_ID,
+                    providerName: 'Github',
+                    fullLabel: 'Sign in with ',
+                    
+                }
             ],
             tosUrl: '<your-tos-url>',
             privacyPolicyUrl: '<your-privacy-policy-url>'
