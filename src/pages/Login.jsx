@@ -22,8 +22,6 @@ export default function Login() {
                         'https://www.googleapis.com/auth/contacts.readonly'
                     ],
                     customParameters: {
-                        // Forces account selection even when one account
-                        // is available.
                         prompt: 'select_account'
                     }
                 },
