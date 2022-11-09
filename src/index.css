@@ -31,15 +31,6 @@ a {
   --nav-bar-width: 232px;
   --background-noise: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iLjA1IiBkPSJNMCAwaDMwMHYzMDBIMHoiLz48L3N2Zz4=");
 }
-
-.top-bar {
-  grid-area: main-view;
-  height: 64px;
-  min-width: 0;
-  pointer-events: none;
-  z-index: 2;
-}
-
 .top-container {
   display: grid;
   grid-template-areas:
@@ -53,6 +44,38 @@ a {
   position: relative;
   width: 100%;
 }
+
+.top-bar {
+  grid-area: main-view;
+  height: 64px;
+  min-width: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.top-bar header {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-padding-end: 16px;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  -webkit-padding-end: 32px;
+  padding: 16px 32px px;
+  padding-inline-end: 32px;
+  display: flex;
+  gap: 16px;
+  height: 64px;
+  justify-content: space-between;
+  padding: 16px;
+  padding-inline-end: 16px;
+  position: relative;
+  width: 100%;
+  z-index: 10;
+}
+
 
 .nav-bar-left {
   -webkit-box-orient: vertical;
@@ -103,6 +126,7 @@ a {
   overflow-x: hidden;
   position: relative;
   width: 100%;
+  padding-top: 60px;
   /* padding: 20px 30px; */
 }
 
