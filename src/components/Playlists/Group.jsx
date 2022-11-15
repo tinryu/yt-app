@@ -1,9 +1,12 @@
+import { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom';
+import { useOutletContext } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import {Link} from 'react-router-dom';
-import { useOutletContext } from "react-router-dom";
 import { getItemOfList } from "../../playlist";
+import Pagination from 'react-js-pagination';
+
 
 export default function Playlists(props) {
     const lists = props.data;
@@ -13,6 +16,7 @@ export default function Playlists(props) {
         listId: '',
         isGroup: true,
     });
+    const [activePage, setActivePage] = useState(15);
     async function openPlaylist(playlistId) {
         const data = await getItemOfList(playlistId);
         const rand = Math.floor(Math.random() * data.length);
@@ -23,7 +27,7 @@ export default function Playlists(props) {
             isGroup: true
         });
     }
-
+    
     return (
         <>
             <Row xs={2} md={5} className="g-4 p-4">
@@ -41,6 +45,18 @@ export default function Playlists(props) {
                     </Col>
                 )}
             </Row>
+            <Pagination
+                activePage={activePage}
+                itemsCountPerPage={10}
+                totalItemsCount={150}
+                pageRangeDisplayed={5}
+                itemClass="page-item"
+                linkClass="page-link"
+                onChange={(e) => {
+                    setActivePage(e)
+                }}
+            />
+
         </>
     )
 }

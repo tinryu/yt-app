@@ -3,15 +3,23 @@ import axios from 'axios';
 const apiKey = import.meta.env.VITE_API_KEY_YT;
 
 export async function getPlayList() {
-    var data = await database.ref('lists').limitToLast(50).once('value').then(function (snapshot) {
-        return snapshot.val();
-    })
-    var da = Object.entries(data).map(function (item) {
-        item[1].id = item[0];
-        return item;
-    })
-    var arr = da.map((k) => k[1]);
-    return arr;
+    var ref = await database.ref('lists');
+    var query = ref.orderByChild("title").startAfter(5).limitToFirst(10);
+    query.once("value", function(snapshot) {
+        console.log(snapshot.val())
+    });
+
+    return [];
+
+    // var data = await database.ref('lists').limitToLast(50).once('value').then(function (snapshot) {
+    //     return snapshot.val();
+    // })
+    // var da = Object.entries(data).map(function (item) {
+    //     item[1].id = item[0];
+    //     return item;
+    // })
+    // var arr = da.map((k) => k[1]);
+    // return arr;
 }
 export async function getPlayListById(id) { 
     var data = await database.ref('/lists/'+id).once('value').then(function (snapshot) {
