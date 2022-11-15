@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { firebase, ui, auth } from "../firebase/firebase.js";
+import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 export default function Login() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    let navigate = useNavigate();
     
     useEffect(() => {
+        if(auth.currentUser)
+            auth.signOut();
+        
         var uiConfig = {
             callbacks: {
                 signInSuccessWithAuthResult: function (authResult, redirectUrl) {
@@ -65,17 +70,27 @@ export default function Login() {
     }, []);
 
     function LoginWithEmailAndPassword() {
-        console.log('e', [email, password]);
+        if (email.length < 4) {
+            alert('Please enter an email address.');
+            return;
+        }
+        if (password.length < 4) {
+            alert('Please enter a password.');
+            return;
+        }
         auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
-        // Signed in
             var user = userCredential.user;
             console.log('user', user);
-        // ...
+            navigate('/')
         })
         .catch((error) => {
             var errorCode = error.code;
             var errorMessage = error.message;
-            console.log('errorMessage', errorMessage);
+            if (errorCode === 'auth/wrong-password') {
+                alert('Wrong password.');
+              } else {
+                alert(errorMessage);
+              }
         });
     }
     return (
@@ -105,7 +120,7 @@ export default function Login() {
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+                                    <Form.Control type="password" placeholder="Password" autoComplete="on" onChange={(e) => setPassword(e.target.value)}/>
                                 </Form.Group>
                                 <Form.Group className="mb-3 d-flex" controlId="formBasicCheckbox">
                                     <Form.Check type="checkbox" label="Remember me" className="col" />
@@ -118,7 +133,7 @@ export default function Login() {
                         <hr className="lineHr my-4" />
                         <div className="sign-up-selection">
                             <p className="mb-4 mt-5">Don't have an account?</p>
-                            <Button variant="success" type="button" className="form-control col">
+                            <Button variant="success" type="button" className="form-control col" onClick={() => {navigate('/register')}}>
                                 Sign Up for Dududu
                             </Button>
                         </div>

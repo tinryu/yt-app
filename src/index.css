@@ -622,3 +622,38 @@ input[type=range].styled-slider::-moz-range-track {
   text-align: center;
   font-weight: 700;
 }
+/* Register */
+.divRegister {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-x: hidden;
+}
+.register-head {
+  border-bottom: 1px solid rgb(255, 255, 255);
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+.register-head .dududulogin {
+  display: inline-flex;
+}
+.register-head .dududulogin p{
+  color: #fefefe;
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin: 0;
+}
+.register-body {
+  flex: 3 1 0%;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding-top: 50px;
+  color: #fefefe;
+}
+.register-body .register-wrap {
+  max-width: 450px;
+  width: 100%;
+}

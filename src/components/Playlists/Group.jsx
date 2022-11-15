@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import { useOutletContext } from "react-router-dom";
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { Button, Card, Col, Row } from 'react-bootstrap';
 import { getItemOfList } from "../../playlist";
-import Pagination from 'react-js-pagination';
+import { database } from "../../firebase/firebase";
+import { useNavigate } from 'react-router-dom';
+// import Pagination from 'react-js-pagination';
 
 
 export default function Playlists(props) {
+    let navigate = useNavigate();
     const lists = props.data;
     const [items, setItems] = useOutletContext({
         itemId: '',
@@ -16,7 +17,7 @@ export default function Playlists(props) {
         listId: '',
         isGroup: true,
     });
-    const [activePage, setActivePage] = useState(15);
+    // const [activePage, setActivePage] = useState(15);
     async function openPlaylist(playlistId) {
         const data = await getItemOfList(playlistId);
         const rand = Math.floor(Math.random() * data.length);
@@ -28,6 +29,11 @@ export default function Playlists(props) {
         });
     }
     
+    async function delPlaylist(id) {
+        let objRef = await database.ref('/lists/'+id);
+        objRef.remove();
+        navigate('/play-list')
+    }
     return (
         <>
             <Row xs={2} md={5} className="g-4 p-4">
@@ -35,6 +41,7 @@ export default function Playlists(props) {
                     <Col key={item.playlistId}>
                         <Link to={'/play-list/'+item.playlistId+'/'+item.id} onClick={() => openPlaylist(item.playlistId)}>
                             <Card className="bg-dark text-white">
+                                <Button variant="default" className="btn-close align-self-center" onClick={() => {delPlaylist(item.id)}} />
                                 <Card.Img src={item.thumbnail.medium.url ? item.thumbnail.medium.url : "../assets/icon/music-icon.svg"} className="p-2"/>
                                 <Card.Body>
                                     <Card.Title>{item.title}</Card.Title>
@@ -45,7 +52,7 @@ export default function Playlists(props) {
                     </Col>
                 )}
             </Row>
-            <Pagination
+            {/* <Pagination
                 activePage={activePage}
                 itemsCountPerPage={10}
                 totalItemsCount={150}
@@ -55,7 +62,7 @@ export default function Playlists(props) {
                 onChange={(e) => {
                     setActivePage(e)
                 }}
-            />
+            /> */}
 
         </>
     )

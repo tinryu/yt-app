@@ -15,7 +15,7 @@ import CreateList from './pages/CreateList';
 import Detail, {
   loader as detailLoader,
 } from './pages/Detail';
-import Resgister from './pages/Resgister';
+import Register from './pages/Register';
 import Login from './pages/Login';
 import NoPage from './pages/NoPage';
 
@@ -26,15 +26,15 @@ const router = createBrowserRouter([
     errorElement: <NoPage />,
   },
   {
+    path: "/register",
+    element: <Register />,
+    errorElement: <NoPage />,
+  },
+  {
     path: "/",
     element: <Layout/>,
     errorElement: <NoPage />,
     children: [
-      {
-        path: "/resgister",
-        element: <Resgister />,
-        errorElement: <NoPage />,
-      },
       {
         path: "/home",
         element: <Home />,
