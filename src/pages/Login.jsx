@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { firebase, ui } from "../firebase/firebase.js";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 export default function Login() {
     useEffect(() => {
@@ -11,121 +13,102 @@ export default function Login() {
                     var isNewUser = authResult.additionalUserInfo.isNewUser;
                     var providerId = authResult.additionalUserInfo.providerId;
                     var operationType = authResult.operationType;
-                    // Do something with the returned AuthResult.
-                    // Return type determines whether we continue the redirect
-                    // automatically or whether we leave that to developer to handle.
                     return true;
                 },
                 signInFailure: function (error) {
-                    // Some unrecoverable error occurred during sign-in.
-                    // Return a promise when error handling is completed and FirebaseUI
-                    // will reset, clearing any UI. This commonly occurs for error code
-                    // 'firebaseui/anonymous-upgrade-merge-conflict' when merge conflict
-                    // occurs. Check below for more details on this.
-                    return handleUIError(error);
+                   return handleUIError(error);
                 },
                 uiShown: function () {
-                    // The widget is rendered.
-                    // Hide the loader.
                     document.getElementById('loader').style.display = 'none';
                 }
             },
             credentialHelper: firebaseui.auth.CredentialHelper.NONE,
-            // Query parameter name for mode.
             queryParameterForWidgetMode: 'mode',
-            // Query parameter name for sign in success url.
             queryParameterForSignInSuccessUrl: 'signInSuccessUrl',
-            // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
             signInFlow: 'popup',
-            signInSuccessUrl: '<url-to-redirect-to-on-success>',
+            signInSuccessUrl: '/home',
             signInOptions: [
                 {
                     provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                     providerName: 'Google',
-                    fullLabel: 'Sign in with ',
                     scopes: [
                         'https://www.googleapis.com/auth/contacts.readonly'
                     ],
                     customParameters: {
-                        // Forces account selection even when one account
-                        // is available.
                         prompt: 'consent'
                     },
                 },
                 {
-                    provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-                    providerName: 'Facebook',
-                    fullLabel: 'Sign in with ',
-                    scopes: [
-                        'public_profile',
-                        'email',
-                        'user_likes',
-                        'user_friends'
-                    ],
-                    customParameters: {
-                        // Forces password re-entry.
-                        auth_type: 'reauthenticate'
-                    }
-                },
-                {
-                    provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                    providerName: 'Email',
-                    fullLabel: 'Sign in with ',
-                    signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
-                    forceSameDevice: false,
-                    emailLinkSignIn: function () {
-                        return {
-                            url: 'https://www.example.com/completeSignIn?showPromo=1234',
-                            // Custom FDL domain.
-                            dynamicLinkDomain: 'example.page.link',
-                            // Always true for email link sign-in.
-                            handleCodeInApp: true,
-                            // Whether to handle link in iOS app if installed.
-                            iOS: {
-                                bundleId: 'com.example.ios'
-                            },
-                            android: {
-                                packageName: 'com.example.android',
-                                installApp: true,
-                                minimumVersion: '12'
-                            }
-                        };
-                    }
-                },
-                {
                     provider: firebase.auth.GithubAuthProvider.PROVIDER_ID,
                     providerName: 'Github',
-                    fullLabel: 'Sign in with ',
-                    
                 },
-                {
-                    provider: firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
-                    providerName: 'Anonymous',
-                    fullLabel: 'Sign in with ',
-                }
+                // {
+                //     provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+                //     // Invisible reCAPTCHA with image challenge and bottom left badge.
+                //     recaptchaParameters: {
+                //       type: 'image',
+                //       size: 'invisible',
+                //       badge: 'bottomleft'
+                //     },
+                //     defaultCountry: 'VN',
+                //     defaultNationalNumber: '1234567890',
+                // },
+                'apple.com',
             ],
-            // Set to true if you only have a single federated provider like
-            // firebase.auth.GoogleAuthProvider.PROVIDER_ID and you would like to
-            // immediately redirect to the provider's site instead of showing a
-            // 'Sign in with Provider' button first. In order for this to take
-            // effect, the signInFlow option must also be set to 'redirect'.
             immediateFederatedRedirect: false,
-            // tosUrl and privacyPolicyUrl accept either url string or a callback
-            // function.
-            // Terms of service url/callback.
-            tosUrl: '<your-tos-url>',
-            // Privacy policy url/callback.
-            privacyPolicyUrl: function () {
-                window.location.assign('<your-privacy-policy-url>');
-            }
         };
         // The start method will wait until the DOM is loaded.
         ui.start('#firebaseui-auth-container', uiConfig);
     }, []);
     return (
         <>
-            <div id="firebaseui-auth-container"></div>
-            <div id="loader">Loading...</div>
+            <div className="divLogin">
+                <div className="login-head">
+                    <div className="dududulogin">
+                        <img alt="" src={"/assets/icon/dududu.png"} width="35" height="35" className="" />
+                        <p>Dududu</p>
+                    </div>
+                </div>
+                <div className="login-body">
+                    <div className="login-wrap">
+                        <div className="login-container">
+                            <div id="firebaseui-auth-container"></div>
+                            <div id="loader">Loading...</div>
+                            <div className="wrapHr">
+                                <hr className="lineHr" />
+                                <span className="centerHr">or</span>
+                                <hr className="lineHr" />
+                            </div>
+                            <Form className="login-form">
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control type="email" placeholder="Enter email" />
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" placeholder="Password" />
+                                </Form.Group>
+                                <Form.Group className="mb-3 d-flex" controlId="formBasicCheckbox">
+                                    <Form.Check type="checkbox" label="Remember me" className="col" />
+                                    <Button variant="danger" type="submit" className="col">
+                                    Come with Dududu
+                                    </Button>
+                                </Form.Group>
+                            </Form>
+                        </div>
+                        <hr className="lineHr my-4" />
+                        <div className="sign-up-selection">
+                            <p className="mb-4 mt-5">Don't have an account?</p>
+                            <Button variant="success" type="button" className="form-control col">
+                                Sign Up for Dududu
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </>
     )
 }

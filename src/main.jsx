@@ -21,6 +21,11 @@ import NoPage from './pages/NoPage';
 
 const router = createBrowserRouter([
   {
+    path: "/login",
+    element: <Login />,
+    errorElement: <NoPage />,
+  },
+  {
     path: "/",
     element: <Layout/>,
     errorElement: <NoPage />,
@@ -28,11 +33,6 @@ const router = createBrowserRouter([
       {
         path: "/resgister",
         element: <Resgister />,
-        errorElement: <NoPage />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
         errorElement: <NoPage />,
       },
       {
@@ -64,8 +64,7 @@ const router = createBrowserRouter([
         errorElement: <NoPage/>,
       }
     ]
-  },
-  
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
