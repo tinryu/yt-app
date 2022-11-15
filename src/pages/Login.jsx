@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react'
-import { firebase, ui } from "../firebase/firebase.js";
+import React, { useEffect, useState } from 'react'
+import { firebase, ui, auth } from "../firebase/firebase.js";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 export default function Login() {
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    
     useEffect(() => {
         var uiConfig = {
             callbacks: {
@@ -60,6 +63,21 @@ export default function Login() {
         // The start method will wait until the DOM is loaded.
         ui.start('#firebaseui-auth-container', uiConfig);
     }, []);
+
+    function LoginWithEmailAndPassword() {
+        console.log('e', [email, password]);
+        auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
+        // Signed in
+            var user = userCredential.user;
+            console.log('user', user);
+        // ...
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log('errorMessage', errorMessage);
+        });
+    }
     return (
         <>
             <div className="divLogin">
@@ -82,17 +100,17 @@ export default function Login() {
                             <Form className="login-form">
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" />
+                                    <Form.Control type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)}/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" />
+                                    <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
                                 </Form.Group>
                                 <Form.Group className="mb-3 d-flex" controlId="formBasicCheckbox">
                                     <Form.Check type="checkbox" label="Remember me" className="col" />
-                                    <Button variant="danger" type="submit" className="col">
-                                    Come with Dududu
+                                    <Button variant="danger" type="button" className="col" onClick={LoginWithEmailAndPassword}>
+                                        Come with Dududu
                                     </Button>
                                 </Form.Group>
                             </Form>
