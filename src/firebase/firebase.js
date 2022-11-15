@@ -3,6 +3,7 @@ import 'firebase/compat/database';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import * as firebaseui from 'firebaseui';
+import 'firebaseui/dist/firebaseui.css'
 
 
 var firebaseConfig = {

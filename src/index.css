@@ -537,3 +537,88 @@ input[type=range].styled-slider::-moz-range-track {
 .seekBar {
   display: flex;
 }
+/* Login */
+.divLogin {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.login-head {
+  border-bottom: 1px solid rgb(255, 255, 255);
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+.login-head .dududulogin {
+  display: inline-flex;
+}
+.login-head .dududulogin p{
+  color: #fefefe;
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin: 0;
+}
+.login-body {
+  flex: 3 1 0%;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding: 10px;
+}
+.login-body .login-wrap {
+  max-width: 450px;
+  width: 100%;
+}
+.firebaseui-container,
+.firebaseui-card-content {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+.firebaseui-idp-button,
+.firebaseui-tenant-button {
+  border-radius: 15px !important;
+  max-width: 100% !important;
+  display: inline-flex !important;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+.wrapHr {
+  display: flex;
+  flex-direction: row;
+}
+.lineHr {
+  margin: 12px 0px 20px;
+  flex: 1 1 0%;
+  border-top: 1px solid rgb(255, 255, 255);
+}
+.centerHr {
+  flex: 0.3 1 0%;
+  align-self: center;
+  text-align: center;
+  line-height: 1px;
+  font-weight: 700;
+  font-size: 12px;
+  background: #181818;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  font-family: spotify-circular, Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: #fefefe;
+  letter-spacing: normal;
+}
+
+.login-form {
+  color: #fefefe;
+}
+.sign-up-selection {
+  color: #fefefe;
+  text-align: center;
+  font-weight: 700;
+}
