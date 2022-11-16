@@ -41,7 +41,7 @@ export default function Playlists(props) {
                     <Col key={item.playlistId}>
                         <Link to={'/play-list/'+item.playlistId+'/'+item.id} onClick={() => openPlaylist(item.playlistId)}>
                             <Card className="bg-dark text-white">
-                                <Button variant="default" className="btn-close align-self-center" onClick={() => {delPlaylist(item.id)}} />
+                                {/* <Button variant="default" className="btn-close align-self-center" onClick={() => {delPlaylist(item.id)}} /> */}
                                 <Card.Img src={item.thumbnail.medium.url ? item.thumbnail.medium.url : "../assets/icon/music-icon.svg"} className="p-2"/>
                                 <Card.Body>
                                     <Card.Title>{item.title}</Card.Title>

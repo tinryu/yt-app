@@ -54,26 +54,26 @@ a {
 }
 
 .top-bar header {
+  display: flex;
+  justify-content: space-between;
   -webkit-box-align: center;
   -ms-flex-align: center;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
-  -webkit-padding-end: 16px;
   align-items: center;
   display: -webkit-box;
   display: -ms-flexbox;
   -webkit-padding-end: 32px;
-  padding: 16px 32px px;
   padding-inline-end: 32px;
-  display: flex;
+  padding: 16px 32px;
   gap: 16px;
   height: 64px;
-  justify-content: space-between;
-  padding: 16px;
-  padding-inline-end: 16px;
   position: relative;
   width: 100%;
   z-index: 10;
+}
+.top-bar header .btn::after {
+  margin-top: 10px;
 }
 
 
@@ -572,8 +572,7 @@ input[type=range].styled-slider::-moz-range-track {
   max-width: 450px;
   width: 100%;
 }
-.firebaseui-container,
-.firebaseui-card-content {
+.firebaseui-container {
   max-width: 100% !important;
   padding: 0 !important;
 }
@@ -616,11 +615,13 @@ input[type=range].styled-slider::-moz-range-track {
 
 .login-form {
   color: #fefefe;
+  padding: 0 25px
 }
 .sign-up-selection {
   color: #fefefe;
   text-align: center;
   font-weight: 700;
+  padding: 0 25px
 }
 /* Register */
 .divRegister {

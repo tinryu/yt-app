@@ -13,15 +13,6 @@ export default function Layout() {
     listId: 'RDq6YmhSgPgbk',
     isGroup: true
   });
-  // auth.onAuthStateChanged((user) => {
-  //   if (user) {
-  //     var uid = user.uid;
-  //     // console.log(uid);
-  //   } else {
-  //     // User is signed out
-  //     // ...
-  //   }
-  // });
 
   return (
     <>

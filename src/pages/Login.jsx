@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { firebase, ui, auth } from "../firebase/firebase.js";
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
@@ -10,17 +10,24 @@ export default function Login() {
     let navigate = useNavigate();
     
     useEffect(() => {
-        if(auth.currentUser)
+        if(auth.currentUser){
             auth.signOut();
+            localStorage.clear();
+        }
+            
         
         var uiConfig = {
             callbacks: {
                 signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-                    var user = authResult.user;
-                    var credential = authResult.credential;
-                    var isNewUser = authResult.additionalUserInfo.isNewUser;
-                    var providerId = authResult.additionalUserInfo.providerId;
-                    var operationType = authResult.operationType;
+                    let data = authResult.user.multiFactor.user
+                    let obj = {
+                        displayName: data.displayName,
+                        email: data.email,
+                        photoURL: data.photoURL,
+                        emailVerified : data.emailVerified,
+                        uid : data.uid
+                    }
+                    localStorage.setItem("user", JSON.stringify(obj));
                     return true;
                 },
                 signInFailure: function (error) {
@@ -34,7 +41,7 @@ export default function Login() {
             queryParameterForWidgetMode: 'mode',
             queryParameterForSignInSuccessUrl: 'signInSuccessUrl',
             signInFlow: 'popup',
-            signInSuccessUrl: '/home',
+            signInSuccessUrl: '/',
             signInOptions: [
                 {
                     provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -79,8 +86,15 @@ export default function Login() {
             return;
         }
         auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
-            var user = userCredential.user;
-            console.log('user', user);
+            let data = userCredential.user.multiFactor.user;
+            let obj = {
+                displayName: data.displayName,
+                email: data.email,
+                photoURL: data.photoURL,
+                emailVerified : data.emailVerified,
+                uid : data.uid
+            }
+            localStorage.setItem("user", JSON.stringify(obj));
             navigate('/')
         })
         .catch((error) => {
@@ -123,8 +137,8 @@ export default function Login() {
                                     <Form.Control type="password" placeholder="Password" autoComplete="on" onChange={(e) => setPassword(e.target.value)}/>
                                 </Form.Group>
                                 <Form.Group className="mb-3 d-flex" controlId="formBasicCheckbox">
-                                    <Form.Check type="checkbox" label="Remember me" className="col" />
-                                    <Button variant="danger" type="button" className="col" onClick={LoginWithEmailAndPassword}>
+                                    {/* <Form.Check type="checkbox" label="Remember me" className="col" /> */}
+                                    <Button variant="danger" type="button" className="form-control col" onClick={LoginWithEmailAndPassword}>
                                         Come with Dududu
                                     </Button>
                                 </Form.Group>
