@@ -20,7 +20,6 @@ export default function Register() {
         }
         auth.createUserWithEmailAndPassword(email, password).then((userCredential) => {
             var user = userCredential.user;
-            console.log('user', user);
             navigate('/')
         }).catch(function(error) {
             var errorCode = error.code;

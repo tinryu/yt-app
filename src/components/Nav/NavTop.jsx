@@ -4,24 +4,27 @@ import { auth } from '../../firebase/firebase';
 
 export default function NavTop() {
     const useLogin = JSON.parse(localStorage.getItem("user"));
-    // console.log(useLogin);
+
     const [location, setLocation] = useState('');
+    const lastLocation = useRef('');
+
     const btnback = useRef();
     const btnforward = useRef();
-    const lastLocation = useRef('');
+    
     let navigate = useNavigate();
     let path = useLocation();
+    
     useEffect(() => {
         setLocation(path.pathname);
         lastLocation.current = location;
-        if(location === '') {
-            btnback.current.style = "cursor: not-allowed";
-        } else {
-            btnback.current.style = "cursor: pointer";
-        }
-        if(lastLocation.current === '' || lastLocation.current === location) {
-            btnforward.current.style = "cursor: not-allowed";
-        }
+        // if(location === '') {
+        //     btnback.current.style.cursor  = "not-allowed";
+        // } else {
+        //     btnback.current.style.cursor  = "not-allowed";
+        // }
+        // if(lastLocation.current === '' || lastLocation.current === location) {
+        //     btnforward.current.style.cursor  = "not-allowed";
+        // }
     }, [path.pathname, location]);
 
     function backHistory() {
@@ -46,6 +49,7 @@ export default function NavTop() {
     return (
         <>
             <header>
+            {path && path.pathname === '/' ? <div></div> :
                 <div className="breadcrumb">
                     <button ref={btnback} className="me-2 border border-0 rounded top-bar-back-button" onClick={() => backHistory()}>
                         <svg role="img" height="30" width="30" className="" viewBox="0 0 24 24">
@@ -58,6 +62,7 @@ export default function NavTop() {
                         </svg>
                     </button>
                 </div>
+            }
                 <>
                     {   !useLogin ? 
                         <div className="logOut">

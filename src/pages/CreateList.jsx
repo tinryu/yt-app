@@ -6,8 +6,9 @@ export default function CreateList() {
   const [data, setData] = useState({});
   const [visble, setVisble] = useState(true);
   function getData2(item) {
-    item.userId = '1';
-    item.userName = 'admin';
+    const useLogin = JSON.parse(localStorage.getItem("user"));
+    item.userId = useLogin.uid;
+    item.userName = useLogin.email;
     setData(item);
     if(data) {
       setVisble(false);
