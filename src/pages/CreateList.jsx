@@ -5,24 +5,29 @@ import {database} from "../firebase/firebase.js";
 export default function CreateList() {
   const [data, setData] = useState({});
   const [visble, setVisble] = useState(true);
+  const useLogin = JSON.parse(localStorage.getItem("user"));
   function getData2(item) {
-    const useLogin = JSON.parse(localStorage.getItem("user"));
-    item.userId = useLogin.uid;
-    item.userName = useLogin.email;
     setData(item);
     if(data) {
+      item.userId = useLogin && useLogin.id ? useLogin.uid : '1';
+      item.userName = useLogin && useLogin.email ? useLogin.email : 'admin';
       setVisble(false);
     }
   }
   function addForm() {
-    database.ref('lists/' + randString(10)).set(data, function (error) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('good');
-        setVisble(true);
-      }
-    });
+    if(useLogin) {
+      database.ref('lists/' + randString(10)).set(data, function (error) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('good');
+          setVisble(true);
+        }
+      });
+    } else {
+      alert("Try login first");
+    }
+    
   }
   function randString(len) {
     var result = '';
