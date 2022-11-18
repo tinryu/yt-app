@@ -1,13 +1,5 @@
 /* NEW LAYOUT */
 body {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-overflow-style: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
   height: 100%;
   line-height: normal;
   min-height: 600px;
@@ -51,6 +43,7 @@ a {
   min-width: 0;
   position: sticky;
   z-index: 6;
+  background-color: rgba(33, 33, 33, 0.95);;
 }
 
 .top-bar header {

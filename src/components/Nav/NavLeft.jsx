@@ -50,7 +50,7 @@ export default function NavLeft() {
         </Nav>
         <hr />
         <Nav>
-          <Nav.Link href="/contact" eventKey="contact" disabled>Contact</Nav.Link>
+          <Nav.Link href="/contact" eventKey="contact">Contact</Nav.Link>
         </Nav>
       </Container>
     </>
