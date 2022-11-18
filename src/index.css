@@ -658,3 +658,19 @@ input[type=range].styled-slider::-moz-range-track {
   max-width: 450px;
   width: 100%;
 }
+.social{
+  padding: 10px;
+  /* width: 200px; */
+  border-radius: 15px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 3px 2px 3px #fefefe;
+  margin: auto;
+}
+.social a{
+  display: block;
+}
+.wrap-social {
+  padding: 100px;
+}

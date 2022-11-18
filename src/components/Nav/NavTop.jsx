@@ -49,7 +49,7 @@ export default function NavTop() {
     return (
         <>
             <header>
-            {path && path.pathname === '/' ? <div></div> :
+            {path && path.pathname === '/' || path.pathname === '/contact' ? <div></div> :
                 <div className="breadcrumb">
                     <button ref={btnback} className="me-2 border border-0 rounded top-bar-back-button" onClick={() => backHistory()}>
                         <svg role="img" height="30" width="30" className="" viewBox="0 0 24 24">

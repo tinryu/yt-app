@@ -9,8 +9,13 @@ export default function NavLeft() {
       <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="#home">
-            <img alt="" src={"/assets/icon/dududu.png"} width="30" height="30" className="d-inline-block align-top" />
-            DuduDuplayer
+            <div className="d-flex flex-column">
+              <div className="d-inline-block">
+                <img alt="" src={"/assets/icon/dududu.png"} width="30" height="30" className="align-top" />
+                <span>Dududuplayer</span>
+              </div>
+              <small style={{fontSize: '0.5rem', textAlign: 'right'}}>design by TinTruong</small>
+            </div>
           </Navbar.Brand>
         </Container>
       </Navbar>
