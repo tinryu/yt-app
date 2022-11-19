@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
+import List from '../Playlists/List';
 
 export default function NavLeft() {
   return (
@@ -52,6 +53,7 @@ export default function NavLeft() {
         <Nav>
           <Nav.Link href="/contact" eventKey="contact">Contact</Nav.Link>
         </Nav>
+        <List data={[]}/>
       </Container>
     </>
   )

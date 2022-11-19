@@ -135,6 +135,7 @@ export default function Player(props) {
     })
   }
   async function onReady(event) {
+    console.log('event', event);
     var rand = state.rand;
     setTimeout(() => {
       setPlayer(event.target)  
@@ -152,11 +153,13 @@ export default function Player(props) {
       playButton(true);
     } else {
       playButton(false);
+      // onReady(event);
     }
     if (event.target.getPlayerState() === 1) {
       playButton(true);
     } else {
       playButton(false);
+      // onReady(event);
     }
   }
   function onError(event) {
@@ -175,7 +178,6 @@ export default function Player(props) {
     }
   }
   async function onPlay() {
-    console.log('v', [player?.getPlayerState()]);
     if (await player?.getPlayerState() === YouTube.PlayerState.PLAYING 
     || await player?.getPlayerState() === YouTube.PlayerState.BUFFERING 
     || await player?.getPlayerState() === YouTube.PlayerState.UNSTARTED 

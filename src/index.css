@@ -667,3 +667,17 @@ input[type=range].styled-slider::-moz-range-track {
 .wrap-social {
   padding: 100px;
 }
+/* list-personal-playlist */
+.list-personal-playlist {
+  margin: 0;
+  padding-left: 15px;
+  padding-top: 15px;
+  max-height: 150px;
+  overflow-x: hidden;
+}
+.list-personal-playlist li {
+  padding-bottom: 15px;
+}
+.list-personal-playlist li a{
+  color: #fff;
+}
