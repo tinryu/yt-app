@@ -1,8 +1,8 @@
 import React, { useState, Suspense } from "react";
 import { Outlet } from "react-router-dom";
-const Player = React.lazy(() => import('../components/Player/Player'));
-const NavLeft = React.lazy(() => import('../components/Nav/NavLeft'));
-const NavTop = React.lazy(() => import('../components/Nav/NavTop'));
+import Player from "../components/Player/Player";
+import NavLeft from "../components/Nav/NavLeft";
+import NavTop from "../components/Nav/NavTop";
 import useWindowDimensions from '../components/Player/UseWindowDimensions';
 
 export default function Layout() {
@@ -17,7 +17,6 @@ export default function Layout() {
   return (
     <>
       <div className="top-container">
-        <Suspense fallback={<div>Loading...</div>}>
           <div className="top-bar">
             <NavTop />
           </div>
@@ -32,7 +31,6 @@ export default function Layout() {
           <div className="now-playing-bar">
             <Player playlistId={items.listId} rand={items.rand} videoId={items.itemId} isGroup={items.isGroup} />
           </div>
-        </Suspense>
       </div>
     </>
   )

@@ -153,13 +153,14 @@ export default function Player(props) {
       playButton(true);
     } else {
       playButton(false);
-      // onReady(event);
     }
     if (event.target.getPlayerState() === 1) {
       playButton(true);
     } else {
       playButton(false);
-      // onReady(event);
+    }
+    if (event.target.getPlayerState() === -1) {
+      event.target?.loadVideoById({ videoId: state.listVid[state.rand].idVid });
     }
   }
   function onError(event) {
@@ -178,33 +179,38 @@ export default function Player(props) {
     }
   }
   async function onPlay() {
-    if (await player?.getPlayerState() === YouTube.PlayerState.PLAYING 
-    || await player?.getPlayerState() === YouTube.PlayerState.BUFFERING 
-    || await player?.getPlayerState() === YouTube.PlayerState.UNSTARTED 
-    || await player?.getPlayerState() === YouTube.PlayerState.ENDED 
-    || await player?.getPlayerState() === YouTube.PlayerState.PAUSED) {
-      pauseVideo();
-    } else if (await player?.getPlayerState() !== YouTube.PlayerState.ENDED) {
-      playVideo();
-    } else if (await player?.getPlayerState() === YouTube.PlayerState.CUED) {
-      playVideoCue();
-    }
+    console.log('onPlay', await player?.getPlayerState());
+    setTimeout(async() => {
+      if (await player?.getPlayerState() === YouTube.PlayerState.PLAYING 
+      || await player?.getPlayerState() === YouTube.PlayerState.BUFFERING 
+      || await player?.getPlayerState() === YouTube.PlayerState.UNSTARTED 
+      || await player?.getPlayerState() === YouTube.PlayerState.ENDED 
+      || await player?.getPlayerState() === YouTube.PlayerState.PAUSED) {
+        pauseVideo();
+      } else if (await player?.getPlayerState() !== YouTube.PlayerState.ENDED) {
+        playVideo();
+      } else if (await player?.getPlayerState() === YouTube.PlayerState.CUED) {
+        playVideoCue();
+      }
+    }, 1500)
+    
   }
 
-  function playVideoCue() {
-    player?.cueVideoById({videoId: state.videoId, startSeconds: 0})
+  async function playVideoCue() {
+    await player?.cueVideoById({videoId: state.videoId, startSeconds: 0})
     dispatch({ type: types.TOOGLEPLAY, isTogglePlay: true })
   }
-  function playVideo() {
-    player?.playVideo();
+  async function playVideo() {
+    await player?.playVideo();
     dispatch({ type: types.TOOGLEPLAY, isTogglePlay: true })
+    
   }
-  function pauseVideo() {
-    player?.pauseVideo();
+  async function pauseVideo() {
+    await player?.pauseVideo();
     dispatch({ type: types.TOOGLEPLAY, isTogglePlay: false })
   }
-  function stopVideo() {
-    player?.stopVideo();
+  async function stopVideo() {
+    await player?.stopVideo();
   }
   function prevSong() {
     var rand = state.rand;

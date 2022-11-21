@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
-import { 
+import {
   createBrowserRouter,
   RouterProvider
 } from "react-router-dom";
@@ -8,13 +8,9 @@ import './index.css'
 import Layout from './pages/Layout';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
-import PlayList, {
-  loader as playlistLoader,
-} from './pages/PlayList';
+import PlayList, { loader as playlistLoader } from './pages/PlayList';
 import CreateList from './pages/CreateList';
-import Detail, {
-  loader as detailLoader,
-} from './pages/Detail';
+import Detail, { loader as detailLoader } from './pages/Detail';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import NoPage from './pages/NoPage';
@@ -32,7 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Layout/>,
+    element: <Layout />,
     errorElement: <NoPage />,
     children: [
       {
@@ -48,20 +44,20 @@ const router = createBrowserRouter([
       {
         path: "/play-list",
         index: true,
-        element: <PlayList/>,
+        element: <PlayList />,
         errorElement: <NoPage />,
         loader: playlistLoader,
       },
       {
         path: "/play-list/:playlistId/:Id",
-        element: <Detail/>,
-        errorElement: <NoPage/>,
+        element: <Detail />,
+        errorElement: <NoPage />,
         loader: detailLoader,
       },
       {
         path: "/create-list",
         element: <CreateList />,
-        errorElement: <NoPage/>,
+        errorElement: <NoPage />,
       }
     ]
   }
