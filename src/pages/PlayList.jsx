@@ -1,11 +1,16 @@
 // import Group from '../components/Playlists/Group'
+import { connectableHostname } from "firebase-tools/lib/utils";
 import React, { Suspense } from "react";
 const Group = React.lazy(() => import('../components/Playlists/Group'));
 import { useLoaderData } from 'react-router-dom';
 import { getPlayList } from "../playlist";
 
 export async function loader() {
-  const playlist = await getPlayList();
+  const userLogin = JSON.parse(localStorage.getItem("user"));
+  let playlist = [];
+  if(userLogin) {
+    playlist = await getPlayList();
+  }
   return { playlist };
 }
 

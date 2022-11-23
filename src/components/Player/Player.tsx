@@ -135,32 +135,27 @@ export default function Player(props) {
     })
   }
   async function onReady(event) {
-    console.log('event', event);
     var rand = state.rand;
-    setTimeout(() => {
-      setPlayer(event.target)  
-    }, 2000);
-    await player?.pauseVideo();
+    await setPlayer(event.target)
+    await player?.playVideo();
     await player?.setPlaybackQuality("small");
-    loadCover(rand);
-    if (await player?.getPlayerState() !== 5) {
+    await loadCover(rand);
+
+    if (event.target.getPlayerState() !== 5) {
       dispatch({ type: types.TOOGLEPLAY, isTogglePlay: false })
     }
   }
-  function onStateChange(event) {
-    console.log('vs', [event.target.getPlayerState()]);
-    if (event.data === 1) {
+  async function onStateChange(event) {
+    console.log('vs', await event.target.getPlayerState());
+    if (await event.data === 1) {
       playButton(true);
     } else {
       playButton(false);
     }
-    if (event.target.getPlayerState() === 1) {
+    if (await event.target.getPlayerState() === 1) {
       playButton(true);
     } else {
       playButton(false);
-    }
-    if (event.target.getPlayerState() === -1) {
-      event.target?.loadVideoById({ videoId: state.listVid[state.rand].idVid });
     }
   }
   function onError(event) {
@@ -179,31 +174,29 @@ export default function Player(props) {
     }
   }
   async function onPlay() {
-    console.log('onPlay', await player?.getPlayerState());
-    setTimeout(async() => {
-      if (await player?.getPlayerState() === YouTube.PlayerState.PLAYING 
-      || await player?.getPlayerState() === YouTube.PlayerState.BUFFERING 
-      || await player?.getPlayerState() === YouTube.PlayerState.UNSTARTED 
-      || await player?.getPlayerState() === YouTube.PlayerState.ENDED 
-      || await player?.getPlayerState() === YouTube.PlayerState.PAUSED) {
-        pauseVideo();
-      } else if (await player?.getPlayerState() !== YouTube.PlayerState.ENDED) {
-        playVideo();
-      } else if (await player?.getPlayerState() === YouTube.PlayerState.CUED) {
-        playVideoCue();
-      }
-    }, 1500)
-    
+    console.log('abc', await player?.getPlayerState());
+    if (await player?.getPlayerState() === YouTube.PlayerState.PLAYING 
+    || await player?.getPlayerState() === YouTube.PlayerState.BUFFERING 
+    || await player?.getPlayerState() === YouTube.PlayerState.ENDED 
+    || await player?.getPlayerState() === YouTube.PlayerState.PAUSED) {
+      pauseVideo();
+    } else if (await player?.getPlayerState() !== YouTube.PlayerState.ENDED) {
+      playVideo();
+    } 
+    // else if (await player?.getPlayerState() === YouTube.PlayerState.CUED) {
+    //   playVideoCue();
+    // } else if (await player?.getPlayerState() === YouTube.PlayerState.UNSTARTED) {
+    //   await player?.loadVideoById({ videoId: state.listVid[state.rand].idVid });
+    // }
   }
 
-  async function playVideoCue() {
-    await player?.cueVideoById({videoId: state.videoId, startSeconds: 0})
-    dispatch({ type: types.TOOGLEPLAY, isTogglePlay: true })
-  }
+  // async function playVideoCue() {
+  //   await player?.loadVideoById({ videoId: state.listVid[state.rand].idVid });
+  //   dispatch({ type: types.TOOGLEPLAY, isTogglePlay: true })
+  // }
   async function playVideo() {
     await player?.playVideo();
     dispatch({ type: types.TOOGLEPLAY, isTogglePlay: true })
-    
   }
   async function pauseVideo() {
     await player?.pauseVideo();

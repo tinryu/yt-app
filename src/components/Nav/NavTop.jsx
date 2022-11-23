@@ -3,7 +3,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
 
 export default function NavTop() {
-    const useLogin = JSON.parse(localStorage.getItem("user"));
+    const userLogin = JSON.parse(localStorage.getItem("user"));
 
     const [location, setLocation] = useState('');
     const lastLocation = useRef('');
@@ -64,7 +64,7 @@ export default function NavTop() {
                 </div>
             }
                 <>
-                    {   !useLogin ? 
+                    {   !userLogin ? 
                         <div className="logOut">
                             <button className="btn btn-outline-light form-control login" type="button" onClick={logIn}>Log in</button>
                         </div>
@@ -72,10 +72,10 @@ export default function NavTop() {
                         <div className="btn-group">
                             <button className="btn btn-light btn-sm dropdown-toggle d-flex" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span className="text-nowrap me-2" style={{width: '7em', textOverflow: 'ellipsis', overflow: 'hidden'}}>
-                                    {useLogin.displayName ? useLogin.displayName : useLogin.email }
+                                    {userLogin.displayName ? userLogin.displayName : userLogin.email }
                                 </span>
-                                {useLogin.photoURL ? 
-                                <img width={30} height={30} className="rounded-circle" src={useLogin.photoURL} alt={useLogin.displayName ? useLogin.displayName : ''} /> :
+                                {userLogin.photoURL ? 
+                                <img width={30} height={30} className="rounded-circle" src={userLogin.photoURL} alt={userLogin.displayName ? userLogin.displayName : ''} /> :
                                 // <span className="border rounded-circle" style={{background: '#181818'}}>Img</span>
                                 <img width={25} height={25} className="rounded-circle" src='/assets/icon/profile-user.svg' alt="user" />
                                 }
