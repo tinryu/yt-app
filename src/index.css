@@ -681,3 +681,11 @@ input[type=range].styled-slider::-moz-range-track {
 .list-personal-playlist li a{
   color: #fff;
 }
+/* loading-wrapper */
+.loading-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  color: rgb(179, 175, 175);
+}

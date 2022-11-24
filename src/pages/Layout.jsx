@@ -1,23 +1,30 @@
-import React, { useState, Suspense } from "react";
-import { Outlet } from "react-router-dom";
-const Player = React.lazy(() => import('../components/Player/Player'));
-const NavLeft = React.lazy(() => import('../components/Nav/NavLeft'));
-const NavTop = React.lazy(() => import('../components/Nav/NavTop'));
+import React, { useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import Player from "../components/Player/Player";
+import NavLeft from "../components/Nav/NavLeft";
+import NavTop from "../components/Nav/NavTop";
 import useWindowDimensions from '../components/Player/UseWindowDimensions';
 
 export default function Layout() {
+  const navigate = useNavigate();
+  const userLogin = JSON.parse(localStorage.getItem("user"));
   const { height } = useWindowDimensions();
+  
   const [items, setItems] = useState({
     itemId: '',
     rand: null,
     listId: 'RDq6YmhSgPgbk',
     isGroup: true
   });
+  useEffect(() => {
+    if (!userLogin)
+      navigate("/login");
+  }, []);
 
   return (
     <>
+      { !userLogin ? <div></div> :
       <div className="top-container">
-        <Suspense fallback={<div>Loading...</div>}>
           <div className="top-bar">
             <NavTop />
           </div>
@@ -32,8 +39,8 @@ export default function Layout() {
           <div className="now-playing-bar">
             <Player playlistId={items.listId} rand={items.rand} videoId={items.itemId} isGroup={items.isGroup} />
           </div>
-        </Suspense>
       </div>
+      }
     </>
   )
 };
