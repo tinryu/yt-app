@@ -31,13 +31,17 @@ export async function getItemOfList(idList, isLength) {
         let list = [];
         let arr = res.data;
         arr.items.forEach(i => {
-            list.push({ 
-                title: i.snippet.title,
-                idVid: i.snippet.resourceId.videoId,
-                thumbnail: i.snippet.thumbnails,
-                publishedAt: i.snippet.publishedAt,
-                channelTitle: i.snippet.channelTitle ? i.snippet.channelTitle : 'Youtube'
-            })
+            if(i.snippet.title === "Private video" || i.snippet.title === "Deleted video") {
+                // not import item to arr
+            } else {
+                list.push({ 
+                    title: i.snippet.title,
+                    idVid: i.snippet.resourceId.videoId,
+                    thumbnail: i.snippet.thumbnails,
+                    publishedAt: i.snippet.publishedAt,
+                    channelTitle: i.snippet.channelTitle ? i.snippet.channelTitle : 'Youtube'
+                })
+            }
         });
         if(isLength === 1) {
             return list.length;

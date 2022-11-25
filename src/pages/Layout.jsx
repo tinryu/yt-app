@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import Player from "../components/Player/Player";
 import NavLeft from "../components/Nav/NavLeft";
 import NavTop from "../components/Nav/NavTop";
 import useWindowDimensions from '../components/Player/UseWindowDimensions';
 
 export default function Layout() {
+  let { playlistId } = useParams();
   const navigate = useNavigate();
   const userLogin = JSON.parse(localStorage.getItem("user"));
   const { height } = useWindowDimensions();
-  
+
   const [items, setItems] = useState({
     itemId: '',
     rand: null,
-    listId: 'RDq6YmhSgPgbk',
+    listId: playlistId ? playlistId : 'RDq6YmhSgPgbk',
     isGroup: true
   });
   useEffect(() => {

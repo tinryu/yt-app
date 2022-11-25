@@ -32,7 +32,7 @@ export default function Playlists(props) {
                         <div className="tracklist-row">
                             <div className="grid-cell">{index}</div>
                             <div className="grid-cell c-start" onClick={() => openPlaylist(item.idVid, index)}>
-                                <img src={item.thumbnail && item.thumbnail.default && item.thumbnail.default.url ? item.thumbnail.default.url : "../assets/icon/music-icon.svg"} alt={item.title} width={40} height={40} />
+                                <img src={item.thumbnail.default && item.thumbnail.default.url ? item.thumbnail.default.url : "./assets/icon/music-icon.svg"} alt={item.title} width={40} height={40} />
                                 <div className="title">
                                     <Link to="">{item.title}</Link>
                                 </div>

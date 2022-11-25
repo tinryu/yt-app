@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {Link} from 'react-router-dom';
 import { useOutletContext } from "react-router-dom";
 import { Card, Col, Row } from 'react-bootstrap';

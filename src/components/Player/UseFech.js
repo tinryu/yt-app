@@ -15,13 +15,11 @@ const useFetch = (playlistID) => {
             await axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {
                 params: {
                     part: 'id,snippet',
-                    maxResults: 30,
+                    maxResults: 100,
                     playlistId: playlistID,
                     key: apiKey,
-                    // pageToken: tokenKey
                 }
             }).then(res => {
-                // res.data.nextPageToken && setToken(res.data.nextPageToken);
                 let list = [];
                 let arr = res.data;
                 arr.items.forEach(i => {
@@ -34,9 +32,7 @@ const useFetch = (playlistID) => {
                     });
                 });
                 res.data && setData(list);
-                // if(token) {
-                //     console.log('token',token);
-                // }
+                
             }).catch(error => {
                 setLoading(false)
                 setError('An error occurred. Awkward..')

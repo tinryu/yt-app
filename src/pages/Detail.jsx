@@ -2,32 +2,21 @@ import React, { useEffect, Suspense } from "react";
 import { useLoaderData, useOutletContext } from "react-router-dom";
 import { getItemOfList, getPlayListById } from "../playlist";
 import Grid from "../components/Playlists/Grid";
-// const Grid = React.lazy(() => import('../components/Playlists/Grid'));
-
 
 export async function loader({ params }) {
   const list = await getItemOfList(params.playlistId);
   const playlist = await getPlayListById(params.Id);
-  return { list, playlist, params };
+  return { list, playlist };
 }
 
 export default function Detail() {
-  const { list, playlist, params } = useLoaderData();
+  const { list, playlist } = useLoaderData();
   const [items, setItems] = useOutletContext({
     itemId: '',
     rand: null,
     listId: '',
     isGroup: false
-});
-  useEffect(() => {
-     setItems({
-      itemId: list[0].idVid,
-      rand: null,
-      listId: params.playlistId,
-      isGroup: false
-     });
-  }, []);
-
+  });
   return (
     <>
       <div className="heading">
@@ -43,9 +32,9 @@ export default function Detail() {
             </span>
             <h2 className="tags">
               <div className="suggest-list">
-                <a href="">Lê Cát Trọng Lý</a>, 
+                {/* <a href="">Lê Cát Trọng Lý</a>, 
                 <a href="">Chillies</a>, 
-                <a href="">Bùi Lan Hương</a> and more
+                <a href="">Bùi Lan Hương</a> and more */}
               </div>
             </h2>
         </div>
