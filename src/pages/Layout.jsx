@@ -10,13 +10,14 @@ export default function Layout() {
   const navigate = useNavigate();
   const userLogin = JSON.parse(localStorage.getItem("user"));
   const { height } = useWindowDimensions();
-
+  
   const [items, setItems] = useState({
     itemId: '',
     rand: null,
     listId: playlistId ? playlistId : 'RDq6YmhSgPgbk',
     isGroup: true
   });
+
   useEffect(() => {
     if (!userLogin)
       navigate("/login");

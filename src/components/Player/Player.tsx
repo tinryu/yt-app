@@ -127,7 +127,7 @@ export default function Player(props) {
     }
   }
   async function onStateChange(event) {
-    console.log('onSC', await event.target.getPlayerState());
+    // console.log('onSC', await event.target.getPlayerState());
     if (await event.data === 1)
       playButton(true);
     else
