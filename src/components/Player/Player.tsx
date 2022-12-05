@@ -118,8 +118,7 @@ export default function Player(props) {
   async function onReady(event) {
     var rand = state.rand;
     await setPlayer(event.target)
-    await player.stopVideo();
-    await player.setPlaybackQuality("small");
+    await player?.setPlaybackQuality("small");
     await loadCover(rand);
 
     if (event.target.getPlayerState() !== 5) {

@@ -8,7 +8,7 @@ export async function loader() {
   const userLogin = JSON.parse(localStorage.getItem("user"));
   let playlist = [];
   if(userLogin) {
-    playlist = await getPlayList();
+    playlist = await getPlayList(250, userLogin.uid);
   }
   return { playlist };
 }

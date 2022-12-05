@@ -5,17 +5,17 @@ import {database} from "../firebase/firebase.js";
 export default function CreateList() {
   const [data, setData] = useState({});
   const [visble, setVisble] = useState(true);
-  const useLogin = JSON.parse(localStorage.getItem("user"));
+  const userLogin = JSON.parse(localStorage.getItem("user"));
   function getData2(item) {
     setData(item);
     if(data) {
-      item.userId = useLogin && useLogin.id ? useLogin.uid : '1';
-      item.userName = useLogin && useLogin.email ? useLogin.email : 'admin';
+      item.userId = userLogin && userLogin.uid ? userLogin.uid : '1';
+      item.userName = userLogin && userLogin.email ? userLogin.email : 'admin';
       setVisble(false);
     }
   }
   function addForm() {
-    if(useLogin) {
+    if(userLogin) {
       database.ref('lists/' + randString(10)).set(data, function (error) {
         if (error) {
           console.log(error);

@@ -1,16 +1,20 @@
-import {database} from './firebase/firebase';
+import {database, auth, ui} from './firebase/firebase';
 import axios from 'axios';
 const apiKey = import.meta.env.VITE_API_KEY_YT;
 
-export async function getPlayList(total = 250) {
-    var data = await database.ref('lists').limitToLast(total).once('value').then(function (snapshot) {
+export async function getPlayList(total = 250, uid) {
+    var arr = [];
+    var data = await database.ref('lists').orderByChild('userId').equalTo(uid).limitToLast(total).once('value').then(function (snapshot) {
+        console.log('ahii', snapshot.val());
         return snapshot.val();
     })
-    var da = Object.entries(data).map(function (item) {
-        item[1].id = item[0];
-        return item;
-    })
-    var arr = da.map((k) => k[1]);
+    if(data) {
+        var da = Object.entries(data).map(function (item) {
+            item[1].id = item[0];
+            return item;
+        })
+        arr = da.map((k) => k[1]);
+    }
     return arr;
 }
 export async function getPlayListById(id) { 
