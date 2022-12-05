@@ -14,26 +14,26 @@ const UseVideoPopular = () => {
             setError(null);
             await axios.get('https://youtube.googleapis.com/youtube/v3/videos', {
                 params: {
-                    part: 'snippet,contentDetails,statistics',
+                    part: 'snippet',
                     chart: 'mostPopular',
+                    regionCode: 'VN',
+                    maxResults: '25',
                     key: apiKey,
                 }
             }).then(res => {
                 let list = [];
                 let arr = res.data;
                 arr.items.forEach(i => {
-                    console.log(i.snippet.title);
                     list.push({
+                        videoid: i.id,
                         title: i.snippet.title,
-                        idVid: i.snippet.resourceId.videoId,
+                        description: i.snippet.description,
                         thumbnail: i.snippet.thumbnails,
                         publishedAt: i.snippet.publishedAt,
                         channelTitle: i.snippet.channelTitle ? i.snippet.channelTitle : 'Youtube'
                     });
                 });
-                console.log('list', list);
                 res.data && setData(list);
-                
             }).catch(error => {
                 setLoading(false)
                 setError('An error occurred. Awkward..')
